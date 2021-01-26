@@ -24,6 +24,9 @@ spec:
         app.kubernetes.io/component: relay
     spec:
       {{- include "influxdb.imagePullSecrets" . | nindent 6 }}
+      {{- if .Values.relay.hostAliases }}
+      hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.relay.hostAliases "context" $) | nindent 8 }}
+      {{- end }}
       {{- if .Values.relay.affinity }}
       affinity: {{- include "common.tplvalues.render" (dict "value" .Values.relay.affinity "context" $) | nindent 8 }}
       {{- else }}
