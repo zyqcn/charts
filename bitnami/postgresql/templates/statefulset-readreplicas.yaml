@@ -39,9 +39,12 @@ spec:
 {{- end }}
     spec:
       {{- if .Values.schedulerName }}
-      schedulerName: "{{ .Values.schedulerName }}"
+      schedulerName: {{ .Values.schedulerName | quote }}
       {{- end }}
-{{- include "postgresql.imagePullSecrets" . | indent 6 }}
+      {{- include "postgresql.imagePullSecrets" . | nindent 6 }}
+      {{- if .Values.readReplicas.hostAliases }}
+      hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.readReplicas.hostAliases "context" $) | nindent 8 }}
+      {{- end }}
       {{- if .Values.readReplicas.affinity }}
       affinity: {{- include "common.tplvalues.render" (dict "value" .Values.readReplicas.affinity "context" $) | nindent 8 }}
       {{- else }}

@@ -121,9 +121,11 @@ replication:
   readReplicas: 1
   ## Set synchronous commit mode: on, off, remote_apply, remote_write and local
   ## ref: https://www.postgresql.org/docs/9.6/runtime-config-wal.html#GUC-WAL-LEVEL
+  ##
   synchronousCommit: 'off'
   ## From the number of `readReplicas` defined above, set the number of those that will have synchronous replication
   ## NOTE: It cannot be > readReplicas
+  ##
   numSynchronousReplicas: 0
   ## Replication Cluster application name. Useful for defining multiple replication policies
   ##
@@ -411,6 +413,7 @@ persistence:
   ## selector:
   ##   matchLabels:
   ##     app: my-app
+  ##
   selector: {}
 
 ## updateStrategy for PostgreSQL StatefulSet and its reads StatefulSets
@@ -429,6 +432,11 @@ primary:
   ##
   podAffinityPreset: ""
 
+  ## Deployment pod host aliases
+  ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+  ##
+  hostAliases: []
+
   ## PostgreSQL Primary pod anti-affinity preset
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
   ## Allowed values: soft, hard
@@ -442,6 +450,7 @@ primary:
   nodeAffinityPreset:
     ## Node affinity type
     ## Allowed values: soft, hard
+    ##
     type: ""
     ## Node label key to match
     ## E.g.
@@ -517,6 +526,11 @@ primary:
 ## PostgreSQL read only replica parameters
 ##
 readReplicas:
+  ## Deployment pod host aliases
+  ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+  ##
+  hostAliases: []
+
   ## PostgreSQL read only pod affinity preset
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
   ## Allowed values: soft, hard
@@ -536,6 +550,7 @@ readReplicas:
   nodeAffinityPreset:
     ## Node affinity type
     ## Allowed values: soft, hard
+    ##
     type: ""
     ## Node label key to match
     ## E.g.
