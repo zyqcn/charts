@@ -233,6 +233,10 @@ spec:
             - name: MONGODB_ADVERTISED_HOSTNAME
               value: "$(MY_POD_NAME).$(K8S_HIDDEN_NODE_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.{{ .Values.clusterDomain }}"
             {{- end }}
+            {{- if .Values.externalAccess.service.nodePorts }}
+            - name: MONGODB_ADVERTISED_PORT
+              value: {{ include "mongodb.validateValues.nodePortList" . }}
+            {{- end }}
             {{- if .Values.auth.username }}
             - name: MONGODB_USERNAME
               value: {{ .Values.auth.username | quote }}

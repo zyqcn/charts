@@ -394,3 +394,10 @@ Return the secret containing MongoDB(R) TLS certificates
     {{- printf "%s-ca" (include "mongodb.fullname" .) -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return the list of external nodePorts
+*/}}
+{{- define "mongodb.validateValues.nodePortList" -}}
+{{- join "," .Values.externalAccess.service.nodePorts }}
+{{- end -}}
