@@ -186,7 +186,7 @@ spec:
             - name: SOLR_COLLECTION
               value: {{ .Values.collection | quote }}
             {{- else }}
-            - name: SOLR_CORE
+            - name: SOLR_CORES
               value: {{ .Values.coreName | quote }}
             {{- end }}
             - name: SOLR_COLLECTION_SHARDS
